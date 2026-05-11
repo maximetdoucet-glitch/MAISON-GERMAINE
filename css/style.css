@@ -2066,3 +2066,75 @@ a:hover { color: var(--gold); }
   /* Time grid: 3 cols instead of 4 */
   .book__times { grid-template-columns: repeat(3, 1fr); gap: .4rem; }
 }
+
+/* =========================================================
+   v2 design upgrades — codified principles overlay
+   (Power-design rules: modular scale 1.333, 8-pt grid,
+    Butterick line-height, single-accent discipline,
+    WCAG focus-visible, text-wrap: balance)
+   ========================================================= */
+:root {
+  --gold:       #c19a32;        /* slightly warmer, more luminous */
+  --gold-soft:  #a07c1f;
+  --ink:        #221d18;        /* deeper for higher contrast */
+  --ink-soft:   #463d34;
+  --line-gold: rgba(193,154,50,0.34);
+  --shadow-card: 0 1px 0 rgba(0,0,0,0.02), 0 12px 32px -16px rgba(34,29,24,0.18);
+  --section-y:  clamp(5.5rem, 11vw, 8.5rem);   /* tighter top end */
+}
+
+body { line-height: 1.55; }                    /* Butterick range, was 1.65 */
+
+.display {
+  font-size: clamp(2.5rem, 5.6vw, 5rem);       /* tighter max */
+  letter-spacing: -.028em;                     /* deeper neg-tracking on display */
+  text-wrap: balance;                          /* modern CSS for headlines */
+}
+.display--sm { font-size: clamp(1.875rem, 4vw, 3rem); text-wrap: balance; }
+
+.eyebrow {
+  font-size: .82rem;                           /* up from .78, easier to read */
+  letter-spacing: .28em;
+  margin-bottom: 1.25rem;
+}
+
+.lead {
+  font-size: clamp(1.2rem, 1.65vw, 1.45rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 60ch;                             /* Bringhurst line-length cap */
+  text-wrap: pretty;
+}
+
+/* Focus-visible (WCAG 2.4.7) — was missing */
+*:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+a:focus-visible, button:focus-visible {
+  outline-offset: 4px;
+}
+
+/* Cards: stricter padding floor + softer depth */
+.service { padding: clamp(1.75rem, 2.5vw, 2.25rem); box-shadow: var(--shadow-card); }
+.visit__map-card { box-shadow: var(--shadow-card); }
+
+/* Body text — proximity tightening */
+.barber__bio { font-size: .96rem; line-height: 1.6; color: var(--muted); }
+
+/* Buttons — Hick's Law tightening: only one visual emphasis style */
+.btn { letter-spacing: .06em; }
+.btn--outline { letter-spacing: .26em; }
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+/* Reduced-motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
